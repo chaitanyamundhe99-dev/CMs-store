@@ -1,16 +1,1 @@
-import sgMail from '@sendgrid/mail';
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    const { to, subject, text } = req.body;
-    try {
-      await sgMail.send({ to, from: process.env.FROM_EMAIL, subject, text });
-      res.status(200).json({ message: 'Email sent' });
-    } catch (err) {
-      res.status(500).json({ error: 'Failed to send email' });
-    }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
-  }
-}
+import sgMail from '@sendgrid/mail'; sgMail.setApiKey(process.env.SENDGRID_API_KEY); export default async function handler(req, res) { if (req.method === 'POST') { const { to, subject, text } = req.body; try { await sgMail.send({ to, from: process.env.FROM_EMAIL, subject, text }); res.status(200).json({ message: 'Email sent' }); } catch (err) { res.status(500).json({ error: 'Failed to send email' }); } } else { res.status(405).json({ error: 'Method not allowed' }); } }

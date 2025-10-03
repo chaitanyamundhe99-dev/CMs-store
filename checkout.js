@@ -1,15 +1,1 @@
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    const { cart, customer } = req.body;
-    const supplierOrders = cart.map((item, index) => ({
-      id: index + 1,
-      product_name: item.title,
-      status: 'Processing',
-      customer_email: customer.email,
-      customer_phone: customer.phone
-    }));
-    res.status(200).json({ message: 'Checkout successful', supplierOrders });
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
-  }
-}
+export default async function handler(req, res) { if (req.method === 'POST') { const { cart, customer } = req.body; const supplierOrders = cart.map((item, index) => ({ id: index + 1, product_name: item.title, status: 'Processing', customer_email: customer.email, customer_phone: customer.phone })); res.status(200).json({ message: 'Checkout successful', supplierOrders }); } else { res.status(405).json({ error: 'Method not allowed' }); } }
