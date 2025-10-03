@@ -1,0 +1,16 @@
+import Twilio from 'twilio';
+const client = Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
+export default async function handler(req, res) {
+  if (req.method === 'POST') {
+    const { to, message } = req.body;
+    try {
+      await client.messages.create({ body: message, from: process.env.TWILIO_PHONE_NUMBER, to });
+      res.status(200).json({ message: 'SMS sent' });
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to send SMS' });
+    }
+  } else {
+    res.status(405).json({ error: 'Method not allowed' });
+  }
+}
